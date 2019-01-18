@@ -1,14 +1,38 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { MovieItem } from '../../components/MovieItem';
+import axios from 'axios';
+import { setAxiosHeader, apikey } from '../../config/axiosConfig';
+import { getDetails, getPopular } from '../../api/getDetails';
 
-export default (Popular = props => {
-  console.log('props', props);
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Popular component</Text>
-      <TouchableOpacity onPress={() => props.navigation.navigate('details')}>
-        <Text>Details</Text>
-      </TouchableOpacity>
-    </View>
-  );
-});
+export default class Popular extends React.Component {
+  componentDidMount() {
+    axios
+      .get(getPopular(), apikey)
+      .then(e =>
+        this.setState({ movies: e.data.results }, () => console.log(this.state))
+      );
+  }
+  render() {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: 15,
+        }}>
+        <Text>Popular component</Text>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('details')}>
+          <Text>Details</Text>
+        </TouchableOpacity>
+        <FlatList
+          style={{ flex: 1, width: '100%' }}
+          data={this.state?.movies}
+          renderItem={({ item }) => <MovieItem item={item} />}
+        />
+      </View>
+    );
+  }
+}
