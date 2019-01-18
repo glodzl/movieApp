@@ -1,7 +1,5 @@
-/* eslint no-use-before-define: 0 */
-
 import {
-  createMaterialTopTabNavigator,
+  createBottomTabNavigator,
   createStackNavigator,
   createAppContainer,
 } from 'react-navigation';
@@ -11,61 +9,61 @@ import DetailScreen from './screens/Detail';
 import FavouritesScreen from './screens/Favourites';
 
 const navigationOptions = {
-  tabBarVisible: false,
   mode: 'modal',
   headerMode: 'none',
 };
 
-const MainNavigator = createMaterialTopTabNavigator(
+const popular = createStackNavigator(
   {
-    popular: {
-      screen: createStackNavigator(
-        {
-          popular: {
-            screen: PopularScreen,
-          },
-          detail: {
-            screen: DetailScreen,
-          },
-        },
-        navigationOptions
-      ),
-    },
-    search: {
-      screen: createStackNavigator(
-        {
-          search: {
-            screen: SearchScreen,
-          },
-          detail: {
-            screen: DetailScreen,
-          },
-        },
-        navigationOptions
-      ),
-    },
-    favourites: {
-      screen: createStackNavigator(
-        {
-          favourites: {
-            screen: FavouritesScreen,
-          },
-          detail: {
-            screen: DetailScreen,
-          },
-        },
-        navigationOptions
-      ),
-    },
+    popular: PopularScreen,
+    details: DetailScreen,
+  },
+  navigationOptions
+);
+
+const search = createStackNavigator(
+  {
+    search: SearchScreen,
+    details: DetailScreen,
+  },
+  navigationOptions
+);
+const favourites = createStackNavigator(
+  {
+    favourites: FavouritesScreen,
+    details: DetailScreen,
+  },
+  navigationOptions
+);
+
+[popular, search, favourites].forEach(
+  screen =>
+    (screen.navigationOptions = ({ navigation }) => {
+      let tabBarVisible = true;
+      if (navigation.state.index > 0) {
+        tabBarVisible = false;
+      }
+      return {
+        tabBarVisible,
+      };
+    })
+);
+
+const MainNavigator = createBottomTabNavigator(
+  {
+    popular,
+    search,
+    favourites,
   },
   {
-    initialRouteName: 'popular',
-    animationEnabled: true,
-    swipeEnabled: true,
-    backBehavior: 'none',
-    lazy: true,
-    tabBarPosition: 'bottom',
-    navigationOptions,
+    tabBarOptions: {
+      initialRouteName: 'popular',
+      animationEnabled: true,
+      swipeEnabled: true,
+      backBehavior: 'none',
+      lazy: true,
+      navigationOptions,
+    },
   }
 );
 

@@ -3,8 +3,6 @@ import { persistStore } from 'redux-persist';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers/index';
 
-//import reducers from '../reducers';
-
 const logger = createLogger();
 
 const middleware = [logger];
