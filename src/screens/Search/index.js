@@ -7,31 +7,65 @@ import {
   TextInput,
 } from 'react-native';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import MovieItem from '../../components/MovieItem';
 import { apikey, searchText } from '../../config/axiosConfig';
 import { searchMovie } from '../../api/searchMovie';
+import colors from '../../config/colors';
 
 export default class Search extends React.Component {
   movieSearch = text => {
     clearTimeout(this.state?.search);
-    const search = setTimeout(() => {
-      axios
-        .get(searchMovie(), { params: { ...apikey, ...searchText(text) } })
-        .then(res => this.setState({ movies: res.data.results }));
-    }, 1000);
-    this.setState({ search });
+    if (!!text) {
+      const search = setTimeout(() => {
+        axios
+          .get(searchMovie(), { params: { ...apikey, ...searchText(text) } })
+          .then(res => this.setState({ movies: res.data.results }));
+      }, 1000);
+      this.setState({ search });
+    }
   };
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TextInput
-          value={this.state?.searchValue}
-          onChangeText={searchValue =>
-            this.setState({ searchValue }, () => this.movieSearch(searchValue))
-          }
-          style={{ width: 200, height: 25 }}
-        />
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginHorizontal: 15,
+          backgroundColor: colors.base,
+        }}>
+        <View style={{ flexDirection: 'row' }}>
+          <TextInput
+            value={this.state?.searchValue}
+            placeholder="Search for movie by name"
+            autoFocus
+            onChangeText={searchValue =>
+              this.setState({ searchValue }, () =>
+                this.movieSearch(searchValue)
+              )
+            }
+            style={{
+              width: '100%',
+              height: 30,
+              marginTop: 15,
+              marginBottom: 10,
+              paddingLeft: 2,
+              fontSize: 16,
+              borderBottomWidth: 1,
+              borderBottomColor: 'green',
+            }}
+          />
+          {!!this.state?.searchValue && (
+            <TouchableOpacity
+              style={{ position: 'absolute', bottom: 15, right: 0 }}
+              onPress={() => this.setState({ searchValue: '' })}>
+              <Icon name="close" size={25} color="black" />
+            </TouchableOpacity>
+          )}
+        </View>
+
         <FlatList
           style={{ flex: 1, width: '100%' }}
           data={this.state?.movies}
@@ -44,10 +78,6 @@ export default class Search extends React.Component {
             />
           )}
         />
-
-        <TouchableOpacity onPress={() => props.navigation.navigate('details')}>
-          <Text>Details</Text>
-        </TouchableOpacity>
       </View>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { FavouriteItem } from '../../components/FavouriteItem';
+import colors from '../../config/colors';
 import axios from 'axios';
 import { setAxiosHeader, apikey } from '../../config/axiosConfig';
 import { getDetails, getPopular } from '../../api/getDetails';
@@ -15,6 +16,7 @@ class Favourites extends React.Component {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: colors.base,
         }}>
         <FlatList
           style={{
@@ -23,6 +25,7 @@ class Favourites extends React.Component {
           }}
           numColumns={3}
           data={this.props.favourites}
+          keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <FavouriteItem
               item={item}

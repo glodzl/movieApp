@@ -2,19 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { imagePath } from '../../api/imagePath';
-import { addFavourite } from '../../actions/favourite';
+import { addFavourite, removeFavourite } from '../../actions/favourite';
+import colors from '../../config/colors';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export const MovieItem = ({ item, addFavourite, onPress }) => (
+export const MovieItem = ({
+  item,
+  isFavourite,
+  addFavourite,
+  removeFavourite,
+  onPress,
+}) => (
   <TouchableOpacity
     onPress={onPress}
     style={{
       flexDirection: 'row',
       justifyContent: 'space-between',
       flex: 1,
-      width: '100%',
       marginVertical: 10,
-      backgroundColor: 'lightgrey',
+      marginHorizontal: 15,
+      backgroundColor: colors.white,
       borderRadius: 10,
+      shadowColor: colors.black,
+      shadowOffset: { width: 2, height: 3 },
+      shadowRadius: 5,
+      shadowOpacity: 0.2,
+      elevation: 3,
     }}>
     <View
       style={{
@@ -39,11 +52,29 @@ export const MovieItem = ({ item, addFavourite, onPress }) => (
           marginVertical: 5,
         }}>
         <Text style={{}}>{item.title}</Text>
-        <Text>{item.vote_average}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text style={{ marginRight: 3 }}>
+            {item.vote_average || 'No rating'}
+          </Text>
+          <Icon name="star" size={14} color="black" />
+        </View>
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text>genre</Text>
-        <Text>{item.release_date}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <Text style={{ marginRight: 5 }}>
+            {item.release_date.split('-')[0]}
+          </Text>
+          <Icon name="date-range" size={20} color="black" />
+        </View>
       </View>
       <Text
         style={{ marginVertical: 10 }}
@@ -51,8 +82,17 @@ export const MovieItem = ({ item, addFavourite, onPress }) => (
         ellipsizeMode="tail">
         {item.overview}
       </Text>
-      <TouchableOpacity onPress={() => addFavourite(item)}>
-        <Text>Favourite</Text>
+      <TouchableOpacity
+        style={{ position: 'absolute', bottom: 10, right: 0 }}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        onPress={() =>
+          isFavourite ? removeFavourite(item) : addFavourite(item)
+        }>
+        <Icon
+          name={isFavourite ? 'favorite' : 'favorite-border'}
+          size={24}
+          color="black"
+        />
       </TouchableOpacity>
     </View>
   </TouchableOpacity>
@@ -60,5 +100,5 @@ export const MovieItem = ({ item, addFavourite, onPress }) => (
 
 export default connect(
   null,
-  { addFavourite }
+  { addFavourite, removeFavourite }
 )(MovieItem);

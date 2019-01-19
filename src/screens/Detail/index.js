@@ -13,6 +13,7 @@ import YouTube from 'react-native-youtube';
 import axios from 'axios';
 import { apikey } from '../../config/axiosConfig';
 import { getVideo } from '../../api/getVideo';
+import colors from '../../config/colors';
 
 const { width } = Dimensions.get('window');
 
@@ -32,7 +33,7 @@ export default class Detail extends React.Component {
     console.log('props', this.props.navigation.getParam('item'));
     const item = this.props.navigation.getParam('item');
     return (
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: colors.base }}>
         <ImageBackground
           source={{ uri: imagePath(item.backdrop_path, 500) }}
           style={{
