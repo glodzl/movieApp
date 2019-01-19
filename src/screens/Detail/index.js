@@ -20,7 +20,7 @@ export default class Detail extends React.Component {
   componentDidMount() {
     const { id } = this.props.navigation.getParam('item');
     axios
-      .get(getVideo(id), apikey)
+      .get(getVideo(id), { params: apikey })
       .then(e =>
         this.setState({ video: e.data.results[0].key }, () =>
           console.log(this.state)

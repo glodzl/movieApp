@@ -1,4 +1,4 @@
 import { baseURL } from './baseURL';
 
-export const getDetails = movieId => `${baseURL}/${movieId}`;
-export const getPopular = () => `${baseURL}/popular`;
+export const getDetails = movieId => `${baseURL}/movie/${movieId}`;
+export const getPopular = () => `${baseURL}/movie/popular`;

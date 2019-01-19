@@ -8,7 +8,7 @@ import { getDetails, getPopular } from '../../api/getDetails';
 export default class Popular extends React.Component {
   componentDidMount() {
     axios
-      .get(getPopular(), apikey)
+      .get(getPopular(), { params: apikey })
       .then(e =>
         this.setState({ movies: e.data.results }, () => console.log(this.state))
       );
@@ -25,7 +25,14 @@ export default class Popular extends React.Component {
         <FlatList
           style={{ flex: 1, width: '100%' }}
           data={this.state?.movies}
-          renderItem={({ item }) => <MovieItem item={item} />}
+          renderItem={({ item }) => (
+            <MovieItem
+              item={item}
+              onPress={() =>
+                this.props.navigation.navigate('details', { item })
+              }
+            />
+          )}
         />
       </View>
     );

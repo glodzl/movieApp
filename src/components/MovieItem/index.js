@@ -4,8 +4,9 @@ import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { imagePath } from '../../api/imagePath';
 import { addFavourite } from '../../actions/favourite';
 
-export const MovieItem = ({ item, addFavourite }) => (
-  <View
+export const MovieItem = ({ item, addFavourite, onPress }) => (
+  <TouchableOpacity
+    onPress={onPress}
     style={{
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -54,7 +55,7 @@ export const MovieItem = ({ item, addFavourite }) => (
         <Text>Favourite</Text>
       </TouchableOpacity>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 export default connect(
