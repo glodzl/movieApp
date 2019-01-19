@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { imagePath } from '../../api/imagePath';
+import { addFavourite } from '../../actions/favourite';
 
-export const MovieItem = ({ item }) => (
+export const MovieItem = ({ item, addFavourite }) => (
   <View
     style={{
       flexDirection: 'row',
@@ -20,7 +22,7 @@ export const MovieItem = ({ item }) => (
         overflow: 'hidden',
       }}>
       <Image
-        source={{ uri: imagePath(item.poster_path, 500) }}
+        source={{ uri: imagePath(item.poster_path, 185) }}
         style={{
           height: 200,
           width: 130,
@@ -48,9 +50,14 @@ export const MovieItem = ({ item }) => (
         ellipsizeMode="tail">
         {item.overview}
       </Text>
-      <TouchableOpacity onPress={() => console.log('favourite')}>
+      <TouchableOpacity onPress={() => addFavourite(item)}>
         <Text>Favourite</Text>
       </TouchableOpacity>
     </View>
   </View>
 );
+
+export default connect(
+  null,
+  { addFavourite }
+)(MovieItem);

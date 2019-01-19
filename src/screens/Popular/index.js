@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { MovieItem } from '../../components/MovieItem';
+import MovieItem from '../../components/MovieItem';
 import axios from 'axios';
 import { setAxiosHeader, apikey } from '../../config/axiosConfig';
 import { getDetails, getPopular } from '../../api/getDetails';
@@ -22,11 +22,6 @@ export default class Popular extends React.Component {
           justifyContent: 'center',
           margin: 15,
         }}>
-        <Text>Popular component</Text>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('details')}>
-          <Text>Details</Text>
-        </TouchableOpacity>
         <FlatList
           style={{ flex: 1, width: '100%' }}
           data={this.state?.movies}

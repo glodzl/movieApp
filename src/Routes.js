@@ -21,13 +21,6 @@ const popular = createStackNavigator(
   navigationOptions
 );
 
-const search = createStackNavigator(
-  {
-    search: SearchScreen,
-    details: DetailScreen,
-  },
-  navigationOptions
-);
 const favourites = createStackNavigator(
   {
     favourites: FavouritesScreen,
@@ -36,7 +29,15 @@ const favourites = createStackNavigator(
   navigationOptions
 );
 
-[popular, search, favourites].forEach(
+const search = createStackNavigator(
+  {
+    search: SearchScreen,
+    details: DetailScreen,
+  },
+  navigationOptions
+);
+
+[popular, favourites, search].forEach(
   screen =>
     (screen.navigationOptions = ({ navigation }) => {
       let tabBarVisible = true;
@@ -52,8 +53,8 @@ const favourites = createStackNavigator(
 const MainNavigator = createBottomTabNavigator(
   {
     popular,
-    search,
     favourites,
+    search,
   },
   {
     tabBarOptions: {
