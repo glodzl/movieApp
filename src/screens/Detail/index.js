@@ -9,20 +9,15 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { imagePath } from '../../api/imagePath';
+import { getVideo } from '../../services';
+import { imagePath, scale } from '../../utils';
 import YouTube from 'react-native-youtube';
-import axios from 'axios';
-import { apikey } from '../../config/axiosConfig';
-import { getVideo } from '../../api/getVideo';
 import styles from './styles';
-import { scale } from '../../utils/scale';
 
 class Detail extends React.Component {
   componentDidMount() {
     const { id } = this.props.navigation.getParam('item');
-    axios
-      .get(getVideo(id), { params: apikey })
-      .then(res => this.setState({ video: res.data.results[0].key }));
+    getVideo(id).then(res => this.setState({ video: res.data.results[0].key }));
   }
 
   render() {

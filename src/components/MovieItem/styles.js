@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import colors from '../../config/colors';
-import { scale } from '../../utils/scale';
+import { scale } from '../../utils';
 
 export default StyleSheet.create({
   container: {
@@ -14,7 +14,7 @@ export default StyleSheet.create({
     shadowColor: colors.black,
     shadowOffset: { width: scale(2), height: scale(3) },
     shadowRadius: scale(5),
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.21,
     elevation: scale(3),
   },
   imageContainer: {
@@ -24,7 +24,7 @@ export default StyleSheet.create({
   },
   image: {
     height: scale(200),
-    width: scale(130),
+    width: scale(120),
     resizeMode: 'cover',
   },
   detailContainer: {
@@ -34,7 +34,8 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: scale(5),
+    marginTop: scale(10),
+    marginBottom: scale(5),
   },
   title: {
     flex: 1,
@@ -54,21 +55,24 @@ export default StyleSheet.create({
   genreContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   genreText: {
     flex: 1,
     fontFamily: 'Roboto-Light',
+    fontSize: scale(12),
   },
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: scale(-3),
   },
   dateText: {
     marginHorizontal: scale(3),
     fontFamily: 'Roboto-Light',
   },
   overview: {
-    marginVertical: scale(10),
+    marginTop: scale(15),
     fontFamily: 'Roboto',
     color: colors.darkGrey,
   },

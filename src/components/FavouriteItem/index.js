@@ -1,9 +1,9 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, Dimensions, View } from 'react-native';
-import { imagePath } from '../../api/imagePath';
+import { imagePath } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
-import { scale } from '../../utils/scale';
+import { scale } from '../../utils';
 
 const { width } = Dimensions.get('window');
 const ITEM_WIDTH = (width - scale(30)) / 3;

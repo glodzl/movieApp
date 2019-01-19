@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { imagePath } from '../../api/imagePath';
-import { scale } from '../../utils/scale';
+import { imagePath, scale } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
@@ -33,14 +32,16 @@ const MovieItem = ({
             <Text style={styles.ratingText}>
               {item.vote_average || 'No rating'}
             </Text>
-            <Icon name="star" size={scale(14)} color="black" />
+            {!!item.vote_average && (
+              <Icon name="star" size={scale(14)} color="black" />
+            )}
           </View>
         </View>
         <View style={styles.genreContainer}>
           {genres && (
             <Text
               style={styles.genreText}
-              numberOfLines={2}
+              numberOfLines={1}
               ellipsizeMode="tail">
               {item.genre_ids
                 .map(id => genres.filter(genre => genre.id === id)[0]?.name)
