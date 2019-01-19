@@ -2,103 +2,78 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { imagePath } from '../../api/imagePath';
-import { addFavourite, removeFavourite } from '../../actions/favourite';
-import colors from '../../config/colors';
+import { scale } from '../../utils/scale';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from './styles';
 
-export const MovieItem = ({
+const MovieItem = ({
   item,
-  isFavourite,
   addFavourite,
   removeFavourite,
   onPress,
-}) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      flex: 1,
-      marginVertical: 10,
-      marginHorizontal: 15,
-      backgroundColor: colors.white,
-      borderRadius: 10,
-      shadowColor: colors.black,
-      shadowOffset: { width: 2, height: 3 },
-      shadowRadius: 5,
-      shadowOpacity: 0.2,
-      elevation: 3,
-    }}>
-    <View
-      style={{
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10,
-        overflow: 'hidden',
-      }}>
-      <Image
-        source={{ uri: imagePath(item.poster_path, 185) }}
-        style={{
-          height: 200,
-          width: 130,
-          resizeMode: 'cover',
-        }}
-      />
-    </View>
-    <View style={{ flex: 1, marginHorizontal: 10 }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginVertical: 5,
-        }}>
-        <Text style={{}}>{item.title}</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text style={{ marginRight: 3 }}>
-            {item.vote_average || 'No rating'}
-          </Text>
-          <Icon name="star" size={14} color="black" />
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text>genre</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text style={{ marginRight: 5 }}>
-            {item.release_date.split('-')[0]}
-          </Text>
-          <Icon name="date-range" size={20} color="black" />
-        </View>
-      </View>
-      <Text
-        style={{ marginVertical: 10 }}
-        numberOfLines={5}
-        ellipsizeMode="tail">
-        {item.overview}
-      </Text>
-      <TouchableOpacity
-        style={{ position: 'absolute', bottom: 10, right: 0 }}
-        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        onPress={() =>
-          isFavourite ? removeFavourite(item) : addFavourite(item)
-        }>
-        <Icon
-          name={isFavourite ? 'favorite' : 'favorite-border'}
-          size={24}
-          color="black"
+  genres,
+  favourites,
+}) => {
+  const isFavourite = favourites.filter(movie => movie.title === item.title)
+    .length;
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: imagePath(item.poster_path, 185) }}
+          style={styles.image}
         />
-      </TouchableOpacity>
-    </View>
-  </TouchableOpacity>
-);
+      </View>
+      <View style={styles.detailContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+            {item.title}
+          </Text>
+          <View style={styles.ratingContainer}>
+            <Text style={styles.ratingText}>
+              {item.vote_average || 'No rating'}
+            </Text>
+            <Icon name="star" size={scale(14)} color="black" />
+          </View>
+        </View>
+        <View style={styles.genreContainer}>
+          {genres && (
+            <Text
+              style={styles.genreText}
+              numberOfLines={2}
+              ellipsizeMode="tail">
+              {item.genre_ids
+                .map(id => genres.filter(genre => genre.id === id)[0]?.name)
+                .join(', ')}
+            </Text>
+          )}
+          <View style={styles.dateContainer}>
+            <Text style={styles.dateText}>
+              {item.release_date.split('-')[0]}
+            </Text>
+            <Icon name="date-range" size={scale(20)} color="black" />
+          </View>
+        </View>
+        <Text style={styles.overview} numberOfLines={5} ellipsizeMode="tail">
+          {item.overview}
+        </Text>
+        <TouchableOpacity
+          style={styles.favourite}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          onPress={() =>
+            isFavourite ? removeFavourite(item) : addFavourite(item)
+          }>
+          <Icon
+            name={isFavourite ? 'favorite' : 'favorite-border'}
+            size={scale(24)}
+            color="black"
+          />
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
-export default connect(
-  null,
-  { addFavourite, removeFavourite }
-)(MovieItem);
+const mapStateToProps = state => ({ favourites: state.favourites });
+
+export default connect(mapStateToProps)(MovieItem);

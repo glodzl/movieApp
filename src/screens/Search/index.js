@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from 'react-native';
+import { FlatList, TouchableOpacity, View, TextInput } from 'react-native';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MovieItem from '../../components/MovieItem';
+import { addFavourite, removeFavourite } from '../../actions/favourite';
 import { apikey, searchText } from '../../config/axiosConfig';
 import { searchMovie } from '../../api/searchMovie';
-import colors from '../../config/colors';
+import { scale } from '../../utils/scale';
+import styles from './styles';
 
-export default class Search extends React.Component {
+class Search extends React.Component {
   movieSearch = text => {
     clearTimeout(this.state?.search);
     if (!!text) {
@@ -25,18 +22,10 @@ export default class Search extends React.Component {
       this.setState({ search });
     }
   };
-
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginHorizontal: 15,
-          backgroundColor: colors.base,
-        }}>
-        <View style={{ flexDirection: 'row' }}>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
           <TextInput
             value={this.state?.searchValue}
             placeholder="Search for movie by name"
@@ -46,35 +35,29 @@ export default class Search extends React.Component {
                 this.movieSearch(searchValue)
               )
             }
-            style={{
-              width: '100%',
-              height: 30,
-              marginTop: 15,
-              marginBottom: 10,
-              paddingLeft: 2,
-              fontSize: 16,
-              borderBottomWidth: 1,
-              borderBottomColor: 'green',
-            }}
+            style={styles.textInput}
           />
           {!!this.state?.searchValue && (
             <TouchableOpacity
-              style={{ position: 'absolute', bottom: 15, right: 0 }}
+              style={styles.icon}
               onPress={() => this.setState({ searchValue: '' })}>
-              <Icon name="close" size={25} color="black" />
+              <Icon name="close" size={scale(25)} color="black" />
             </TouchableOpacity>
           )}
         </View>
-
         <FlatList
-          style={{ flex: 1, width: '100%' }}
+          style={styles.list}
           data={this.state?.movies}
+          keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <MovieItem
               item={item}
               onPress={() =>
                 this.props.navigation.navigate('details', { item })
               }
+              genres={this.props.genres}
+              addFavourite={() => this.props.addFavourite(item)}
+              removeFavourite={() => this.props.removeFavourite(item)}
             />
           )}
         />
@@ -82,3 +65,13 @@ export default class Search extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  favourites: state.favourites,
+  genres: state.genres,
+});
+
+export default connect(
+  mapStateToProps,
+  { addFavourite, removeFavourite }
+)(Search);

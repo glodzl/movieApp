@@ -1,46 +1,23 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, Dimensions, View } from 'react-native';
 import { imagePath } from '../../api/imagePath';
-import colors from '../../config/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import styles from './styles';
+import { scale } from '../../utils/scale';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = (width - 30) / 3;
+const ITEM_WIDTH = (width - scale(30)) / 3;
 
 export const FavouriteItem = ({ item, onPress }) => (
-  <View
-    style={{
-      shadowColor: colors.black,
-      shadowOffset: { width: 2, height: 3 },
-      shadowRadius: 5,
-      shadowOpacity: 0.2,
-      elevation: 3,
-    }}>
-    <TouchableOpacity
-      onPress={onPress}
-      style={{
-        borderRadius: 10,
-        overflow: 'hidden',
-        alignItems: 'center',
-        margin: 5,
-        backgroundColor: colors.white,
-      }}>
+  <View style={styles.shadowContainer}>
+    <TouchableOpacity onPress={onPress} style={styles.container}>
       <Image
         source={{ uri: imagePath(item.poster_path, 185) }}
-        style={{
-          height: 200,
-          width: ITEM_WIDTH,
-          resizeMode: 'cover',
-        }}
+        style={[styles.image, { width: ITEM_WIDTH }]}
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginVertical: 10,
-        }}>
-        <Text style={{}}>{item.vote_average}</Text>
-        <Icon name="star" size={14} color="black" />
+      <View style={styles.detailContainer}>
+        <Text style={styles.ratingText}>{item.vote_average}</Text>
+        <Icon name="star" size={scale(14)} color="black" />
       </View>
     </TouchableOpacity>
   </View>

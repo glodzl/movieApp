@@ -60,7 +60,6 @@ const MainNavigator = createBottomTabNavigator(
     tabBarOptions: {
       initialRouteName: 'popular',
       animationEnabled: true,
-      swipeEnabled: true,
       backBehavior: 'none',
       lazy: true,
       navigationOptions,

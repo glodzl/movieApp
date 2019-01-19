@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import { popularReducer } from './popular';
 import { favouritesReducer } from './favourites';
-import { searchReducer } from './search';
+import { genresReducer } from './genre';
 
 export default combineReducers({
-  popular: popularReducer,
   favourites: favouritesReducer,
-  search: searchReducer,
+  genres: genresReducer,
 });

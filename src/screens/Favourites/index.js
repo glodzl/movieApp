@@ -1,28 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { FavouriteItem } from '../../components/FavouriteItem';
-import colors from '../../config/colors';
-import axios from 'axios';
-import { setAxiosHeader, apikey } from '../../config/axiosConfig';
-import { getDetails, getPopular } from '../../api/getDetails';
+import styles from './styles';
 
 class Favourites extends React.Component {
   render() {
-    console.log('this.props', this.props);
     return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: colors.base,
-        }}>
+      <View style={styles.container}>
         <FlatList
-          style={{
-            flex: 1,
-            width: '100%',
-          }}
+          style={styles.list}
           numColumns={3}
           data={this.props.favourites}
           keyExtractor={item => item.id.toString()}

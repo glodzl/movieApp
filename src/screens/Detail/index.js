@@ -1,6 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
-  Dimensions,
   Image,
   ImageBackground,
   Text,
@@ -8,74 +8,71 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { imagePath } from '../../api/imagePath';
 import YouTube from 'react-native-youtube';
 import axios from 'axios';
 import { apikey } from '../../config/axiosConfig';
 import { getVideo } from '../../api/getVideo';
-import colors from '../../config/colors';
+import styles from './styles';
+import { scale } from '../../utils/scale';
 
-const { width } = Dimensions.get('window');
-
-export default class Detail extends React.Component {
+class Detail extends React.Component {
   componentDidMount() {
     const { id } = this.props.navigation.getParam('item');
     axios
       .get(getVideo(id), { params: apikey })
-      .then(e =>
-        this.setState({ video: e.data.results[0].key }, () =>
-          console.log(this.state)
-        )
-      );
+      .then(res => this.setState({ video: res.data.results[0].key }));
   }
 
   render() {
-    console.log('props', this.props.navigation.getParam('item'));
     const item = this.props.navigation.getParam('item');
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: colors.base }}>
+      <ScrollView style={styles.container}>
         <ImageBackground
           source={{ uri: imagePath(item.backdrop_path, 500) }}
-          style={{
-            height: 200,
-            width,
-            resizeMode: 'cover',
-            marginBottom: 10,
-            justifyContent: 'flex-end',
-          }}>
+          style={styles.imageHeader}>
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Text>Back</Text>
           </TouchableOpacity>
         </ImageBackground>
-        <View style={{ marginHorizontal: 15 }}>
-          <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+        <View style={styles.mainContainer}>
+          <View style={styles.subContainer}>
             <Image
               source={{ uri: imagePath(item.poster_path, 185) }}
-              style={{
-                height: 180,
-                width: 120,
-                resizeMode: 'cover',
-              }}
+              style={styles.image}
             />
-            <View>
-              <Text>{item.title}</Text>
-              <Text>genre</Text>
-              <Text>{item.vote_average}</Text>
-              <Text>{item.release_date}</Text>
+            <View style={styles.detailContainer}>
+              <Text style={styles.title}>{item.title}</Text>
+              {this.props?.genres && (
+                <Text style={styles.genre}>
+                  {item.genre_ids
+                    .map(
+                      id =>
+                        this.props.genres.filter(genre => genre.id === id)[0]
+                          ?.name
+                    )
+                    .join(', ')}
+                </Text>
+              )}
+              <View style={styles.detailSubContainer}>
+                <Text style={styles.detailText}>{item.vote_average}</Text>
+                <Icon name="star" size={scale(14)} color="black" />
+              </View>
+              <View style={styles.detailSubContainer}>
+                <Text style={styles.detailText}>
+                  {item.release_date.split('-')[0]}
+                </Text>
+                <Icon name="date-range" size={scale(16)} color="black" />
+              </View>
             </View>
           </View>
-          <Text>{item.overview}</Text>
+          <Text style={styles.overview}>{item.overview}</Text>
           {this.state?.video && (
             <YouTube
               apiKey="AIzaSyBiib2QGNt4r-Ev7bGbrgYeql-O7E7--nw"
               videoId={this.state?.video} // The YouTube video ID
-              style={{
-                height: 200,
-                width: 320,
-                backgroundColor: 'grey',
-                marginTop: 20,
-                alignSelf: 'center',
-              }}
+              style={styles.youtube}
             />
           )}
         </View>
@@ -83,3 +80,7 @@ export default class Detail extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({ genres: state.genres });
+
+export default connect(mapStateToProps)(Detail);
