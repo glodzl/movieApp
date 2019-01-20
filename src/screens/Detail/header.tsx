@@ -51,13 +51,17 @@ const AnimatedHeader = ({
         source={imageSrc}
       />
       <View style={styles.headerButtonContainer}>
-        <TouchableOpacity onPress={backPress}>
+        <TouchableOpacity
+          onPress={backPress}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Icon name="chevron-left" size={scale(25)} color="white" />
         </TouchableOpacity>
         <Animated.Text style={[styles.headerTitle, titleOpacity]}>
           {title}
         </Animated.Text>
-        <TouchableOpacity onPress={favouritePress}>
+        <TouchableOpacity
+          onPress={favouritePress}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Icon
             name={isFavourite ? 'favorite' : 'favorite-border'}
             size={scale(24)}

@@ -55,7 +55,7 @@ export default StyleSheet.create({
     position: 'absolute',
     bottom: scale(10),
     left: scale(10),
-    right: scale(10),
+    right: scale(13),
   },
   mainContainer: {
     marginHorizontal: scale(15),
@@ -102,7 +102,6 @@ export default StyleSheet.create({
   },
   youtube: {
     width: scale(320),
-    marginTop: scale(40),
     marginBottom: scale(80),
     alignSelf: 'center',
   },
@@ -110,5 +109,6 @@ export default StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: scale(14),
     color: colors.darkGrey,
+    marginBottom: scale(40),
   },
 });
