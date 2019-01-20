@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { searchMovieApi } from '../api';
-import { apikey, searchText } from '../config/axiosConfig';
+import { movieDbApikeyObject, searchText } from '../config';
 
 export const searchMovie = async (text: string): Promise<any> => {
   try {
     const res = await axios.get(searchMovieApi(), {
-      params: { ...apikey, ...searchText(text) },
+      params: { ...movieDbApikeyObject, ...searchText(text) },
     });
     return res;
   } catch {

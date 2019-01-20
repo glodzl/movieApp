@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { genreApi } from '../api';
-import { apikey } from '../config/axiosConfig';
+import { movieDbApikeyObject } from '../config';
 
 export const getGenre = async (): Promise<any> => {
   try {
-    const res = await axios.get(genreApi(), { params: apikey });
+    const res = await axios.get(genreApi(), { params: movieDbApikeyObject });
     return res;
   } catch {
     return false;

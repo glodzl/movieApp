@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { popularApi } from '../api';
-import { apikey } from '../config/axiosConfig';
+import { movieDbApikeyObject } from '../config';
 
 export const getPopular = async (page: number): Promise<any> => {
   const pageParam = {
@@ -8,7 +8,7 @@ export const getPopular = async (page: number): Promise<any> => {
   };
   try {
     const res = await axios.get(popularApi(), {
-      params: { ...apikey, ...pageParam },
+      params: { ...movieDbApikeyObject, ...pageParam },
     });
     return res;
   } catch {

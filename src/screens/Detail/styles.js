@@ -1,13 +1,61 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../themes/colors';
 import { scale } from '../../utils';
-
-const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
     flex: 1,
+  },
+  scrollViewContainer: {
+    flex: 1,
     backgroundColor: colors.base,
+    zIndex: 1,
+  },
+  headerContainer: {
+    position: 'absolute',
+    flex: 0,
+    zIndex: 2,
+    height: scale(200),
+    width: '100%',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerPlaceholder: {
+    flex: 0,
+    height: scale(200),
+    width: '100%',
+    marginTop: scale(10),
+  },
+  headerBackground: {
+    position: 'absolute',
+    top: -5,
+    flex: 0,
+    height: scale(200),
+    width: '100%',
+    backgroundColor: colors.black,
+    zIndex: 2,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  headerImage: {
+    height: scale(200),
+    width: '100%',
+    resizeMode: 'cover',
+  },
+  headerTitle: {
+    fontFamily: 'Roboto-Medium',
+    fontSize: scale(16),
+    color: colors.white,
+  },
+  headerButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: scale(10),
+    left: scale(10),
+    right: scale(10),
   },
   mainContainer: {
     marginHorizontal: scale(15),
@@ -15,13 +63,6 @@ export default StyleSheet.create({
   subContainer: {
     flexDirection: 'row',
     marginBottom: scale(20),
-  },
-  imageHeader: {
-    height: scale(200),
-    width,
-    resizeMode: 'cover',
-    marginBottom: scale(10),
-    justifyContent: 'flex-end',
   },
   image: {
     height: scale(180),
