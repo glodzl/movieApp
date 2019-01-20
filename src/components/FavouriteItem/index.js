@@ -16,8 +16,12 @@ export const FavouriteItem = ({ item, onPress }) => (
         style={[styles.image, { width: ITEM_WIDTH }]}
       />
       <View style={styles.detailContainer}>
-        <Text style={styles.ratingText}>{item.vote_average}</Text>
-        <Icon name="star" size={scale(14)} color="black" />
+        <Text style={styles.ratingText}>
+          {item.vote_average || 'No rating'}
+        </Text>
+        {!!item.vote_average && (
+          <Icon name="star" size={scale(14)} color="black" />
+        )}
       </View>
     </TouchableOpacity>
   </View>
