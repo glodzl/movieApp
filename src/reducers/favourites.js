@@ -1,6 +1,8 @@
 import { FAVOURITE_ADD, FAVOURITE_REMOVE } from '../actions';
 
-export const favouritesReducer = (state = [], action) => {
+export const initialState = [];
+
+export const favouritesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FAVOURITE_ADD: {
       return [...state, action.payload];

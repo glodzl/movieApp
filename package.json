@@ -33,6 +33,7 @@
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.15.3",
     "react-test-renderer": "16.5.0",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.12.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.17.0",
@@ -40,7 +41,11 @@
     "tslint-react": "^3.6.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    }
   },
   "rnpm": {
     "assets": [
