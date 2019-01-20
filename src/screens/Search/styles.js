@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import colors from '../../themes/colors';
 import { scale } from '../../utils';
 
@@ -12,13 +12,14 @@ export default StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     marginHorizontal: scale(15),
-    marginVertical: scale(10),
+    marginBottom: scale(10),
+    marginTop: Platform.OS === 'ios' ? scale(10) : 0,
   },
   textInput: {
     width: '100%',
     height: '100%',
     paddingLeft: scale(2),
-    paddingBottom: scale(8),
+    paddingBottom: scale(6),
     fontSize: scale(16),
     borderBottomWidth: scale(1.5),
     borderBottomColor: colors.darkBlue,

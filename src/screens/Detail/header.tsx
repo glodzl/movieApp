@@ -40,7 +40,7 @@ const AnimatedHeader = ({
   const titleOpacity = {
     opacity: animationRange.interpolate({
       inputRange: [0, 1],
-      outputRange: [0.1, 1],
+      outputRange: [0, 1],
     }),
   };
 

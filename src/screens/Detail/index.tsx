@@ -6,7 +6,7 @@ import {
   Animated,
 } from 'react-native';
 import AnimatedHeader from './header';
-import { youtubeApiKey } from '../../config';
+import { YOUTUBE_API_KEY } from '../../config';
 import { addFavourite, removeFavourite } from '../../actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
@@ -25,6 +25,7 @@ interface Props {
 
 interface State {
   video: any;
+  height: number;
 }
 const scrollRangeForAnimation = scale(150);
 // headerHeight = scale(200);
@@ -33,7 +34,8 @@ const HeaderPlaceholder = <View style={styles.headerPlaceholder} />;
 class Detail extends React.Component<Props, State> {
   
   state = {
-    scrollY: new Animated.Value(0)
+    scrollY: new Animated.Value(0),
+    videoHeight: scale(200)
   }
 
   public static defaultProps = { 
@@ -45,6 +47,11 @@ class Detail extends React.Component<Props, State> {
     getVideo(id).then(res => this.setState({ video: res.data.results[0].key }));
   }
 
+  handleReady = () => {
+        // android fix to have controls on video
+        setTimeout(() => this.setState({ height: scale(201) }), 500);
+  }
+
   render() {
     const item = this.props.navigation.getParam('item');
     const isFavourite = this.props.favourites.filter(movie => movie.title === item.title)
@@ -52,19 +59,6 @@ class Detail extends React.Component<Props, State> {
     const favouritePress = () => isFavourite ? this.props.removeFavourite(item) : this.props.addFavourite(item);
     const backPress = () => this.props.navigation.goBack()
 
-    let _scrollView = null;
-    const onScrollEndSnapToEdge = event => {
-      const y = event.nativeEvent.contentOffset.y;
-      if (0 < y && y < scrollRangeForAnimation / 2) {
-          if (_scrollView) {
-              _scrollView.scrollTo({y: 0});
-          }
-      } else if (scrollRangeForAnimation / 2 <= y && y < scrollRangeForAnimation) {
-          if (_scrollView) {
-              _scrollView.scrollTo({y: scrollRangeForAnimation});
-          }
-      }
-    };
     const animationRange = this.state.scrollY.interpolate({
       inputRange: [0, scrollRangeForAnimation],
       outputRange: [0, 1],
@@ -84,11 +78,6 @@ class Detail extends React.Component<Props, State> {
         </View>
       <Animated.ScrollView 
         style={styles.scrollViewContainer}
-        ref={scrollView => {
-            _scrollView = scrollView ? scrollView._component : null;
-        }}
-        onScrollEndDrag={onScrollEndSnapToEdge}
-        onMomentumScrollEnd={onScrollEndSnapToEdge}
         onScroll={Animated.event(
           [{nativeEvent: { contentOffset: { y: this.state.scrollY }}}],
           { useNativeDriver: true }
@@ -128,9 +117,12 @@ class Detail extends React.Component<Props, State> {
           <Text style={styles.overview}>{item.overview}</Text>
           {this.state?.video && (
             <YouTube
-              apiKey={youtubeApiKey}
+              apiKey={YOUTUBE_API_KEY}
+              controls={1}
+              play={false}
               videoId={this.state?.video} // The YouTube video ID
-              style={styles.youtube}
+              onReady={this.handleReady}
+              style={[styles.youtube, { height: this.state.height } ]}
             />
           )}
         </View>

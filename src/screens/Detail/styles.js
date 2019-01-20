@@ -62,7 +62,7 @@ export default StyleSheet.create({
   },
   subContainer: {
     flexDirection: 'row',
-    marginBottom: scale(20),
+    marginBottom: scale(30),
   },
   image: {
     height: scale(180),
@@ -101,13 +101,14 @@ export default StyleSheet.create({
     marginRight: scale(3),
   },
   youtube: {
-    height: scale(200),
     width: scale(320),
-    marginVertical: scale(25),
+    marginTop: scale(40),
+    marginBottom: scale(80),
     alignSelf: 'center',
   },
   overview: {
-    fontFamily: 'Roboto-Medium',
+    fontFamily: 'Roboto',
+    fontSize: scale(14),
     color: colors.darkGrey,
   },
 });
