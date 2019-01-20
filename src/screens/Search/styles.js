@@ -20,8 +20,8 @@ export default StyleSheet.create({
     marginBottom: scale(10),
     paddingLeft: scale(2),
     fontSize: scale(16),
-    borderBottomWidth: scale(1),
-    borderBottomColor: 'green',
+    borderBottomWidth: scale(1.5),
+    borderBottomColor: colors.darkBlue,
   },
   icon: {
     position: 'absolute',

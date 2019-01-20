@@ -7,13 +7,15 @@ import SearchScreen from './screens/Search';
 import PopularScreen from './screens/Popular';
 import DetailScreen from './screens/Detail';
 import FavouritesScreen from './screens/Favourites';
+import { scale } from './utils';
+import colors from './config/colors';
 
 const navigationOptions = {
   mode: 'modal',
   headerMode: 'none',
 };
 
-const popular = createStackNavigator(
+const Popular = createStackNavigator(
   {
     popular: PopularScreen,
     details: DetailScreen,
@@ -21,7 +23,7 @@ const popular = createStackNavigator(
   navigationOptions
 );
 
-const favourites = createStackNavigator(
+const Favourites = createStackNavigator(
   {
     favourites: FavouritesScreen,
     details: DetailScreen,
@@ -29,7 +31,7 @@ const favourites = createStackNavigator(
   navigationOptions
 );
 
-const search = createStackNavigator(
+const Search = createStackNavigator(
   {
     search: SearchScreen,
     details: DetailScreen,
@@ -37,7 +39,7 @@ const search = createStackNavigator(
   navigationOptions
 );
 
-[popular, favourites, search].forEach(
+[Popular, Favourites, Search].forEach(
   screen =>
     (screen.navigationOptions = ({ navigation }) => {
       let tabBarVisible = true;
@@ -52,9 +54,9 @@ const search = createStackNavigator(
 
 const MainNavigator = createBottomTabNavigator(
   {
-    popular,
-    favourites,
-    search,
+    Popular,
+    Favourites,
+    Search,
   },
   {
     tabBarOptions: {
@@ -62,7 +64,19 @@ const MainNavigator = createBottomTabNavigator(
       animationEnabled: true,
       backBehavior: 'none',
       lazy: true,
-      navigationOptions,
+      showIcon: false,
+      inactiveTintColor: colors.lightBlue,
+      activeTintColor: colors.mediumBlue,
+      labelStyle: {
+        fontFamily: 'Roboto-Light',
+        fontSize: scale(14),
+      },
+      style: {
+        height: scale(45),
+        backgroundColor: colors.darkBlue,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     },
   }
 );

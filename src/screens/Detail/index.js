@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getVideo } from '../../services';
-import { imagePath, scale } from '../../utils';
+import { imagePath, getYear, scale } from '../../utils';
 import YouTube from 'react-native-youtube';
 import styles from './styles';
 
@@ -56,7 +56,7 @@ class Detail extends React.Component {
               </View>
               <View style={styles.detailSubContainer}>
                 <Text style={styles.detailText}>
-                  {item.release_date.split('-')[0]}
+                  {getYear(item.release_date)}
                 </Text>
                 <Icon name="date-range" size={scale(16)} color="black" />
               </View>

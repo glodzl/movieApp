@@ -65,10 +65,11 @@ export default StyleSheet.create({
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: scale(-3),
+    marginRight: scale(-1),
   },
   dateText: {
     marginHorizontal: scale(3),
+    fontSize: scale(12),
     fontFamily: 'Roboto-Light',
   },
   overview: {

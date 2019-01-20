@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { imagePath, scale } from '../../utils';
+import { imagePath, getYear, scale } from '../../utils';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from './styles';
 
@@ -33,7 +33,7 @@ const MovieItem = ({
               {item.vote_average || 'No rating'}
             </Text>
             {!!item.vote_average && (
-              <Icon name="star" size={scale(14)} color="black" />
+              <Icon name="star" size={scale(16)} color="black" />
             )}
           </View>
         </View>
@@ -49,10 +49,8 @@ const MovieItem = ({
             </Text>
           )}
           <View style={styles.dateContainer}>
-            <Text style={styles.dateText}>
-              {item.release_date.split('-')[0]}
-            </Text>
-            <Icon name="date-range" size={scale(20)} color="black" />
+            <Text style={styles.dateText}>{getYear(item.release_date)}</Text>
+            <Icon name="date-range" size={scale(18)} color="black" />
           </View>
         </View>
         <Text style={styles.overview} numberOfLines={5} ellipsizeMode="tail">

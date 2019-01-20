@@ -9,6 +9,9 @@ const darkGrey = '#424242';
 const almostBlack = '#212121';
 const black = '#000000';
 const white = '#FFF';
+const lightBlue = '#B2DFDB';
+const mediumBlue = '#26A69A';
+const darkBlue = '#081c24';
 
 export default {
   base,
@@ -22,4 +25,7 @@ export default {
   almostBlack,
   black,
   white,
+  lightBlue,
+  mediumBlue,
+  darkBlue,
 };
