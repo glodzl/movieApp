@@ -8,10 +8,10 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import YouTube from 'react-native-youtube';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getVideo } from '../../services';
-import { imagePath, getYear, scale } from '../../utils';
-import YouTube from 'react-native-youtube';
+import { getYear, imagePath, scale } from '../../utils';
 import styles from './styles';
 
 class Detail extends React.Component {

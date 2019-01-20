@@ -2,7 +2,7 @@ import axios from 'axios';
 import { popularApi } from '../api';
 import { apikey } from '../config/axiosConfig';
 
-export const getPopular = async (page = 1) => {
+export const getPopular = async (page: number): Promise<any> => {
   const pageParam = {
     page,
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import configureStore from './src/config/setupStore';
 import AppNavigator from './src/AppNavigator';
+import configureStore from './src/config/setupStore';
 
 const { store } = configureStore();
 
