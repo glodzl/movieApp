@@ -20,3 +20,8 @@ It uses React Native, Redux and TypeScript.
 
 * Android:
   `react-native run-android`
+  
+### Android APK
+ 
+ https://drive.google.com/file/d/1XdBHChs5Ih7KhvdRExDBBskb9FnE8_-a/view?usp=sharing
+ 
