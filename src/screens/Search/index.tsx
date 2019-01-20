@@ -12,13 +12,14 @@ import styles from './styles';
 interface Props {
   addFavourite: Function;
   removeFavourite: Function;
-  genres: Array<Genre>;
-  favourites: Array<Movie>;
+  genres: Genre[];
+  favourites: Movie[];
 }
 
 interface State {
   search: any;
-  movies: Array<Movie>
+  searchValue: string;
+  movies: Movie[]
 }
 
 class Search extends React.Component<Props, State> {

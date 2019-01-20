@@ -12,20 +12,21 @@ export default StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     marginHorizontal: scale(15),
+    marginVertical: scale(10),
   },
   textInput: {
     width: '100%',
-    marginTop: scale(15),
-    marginBottom: scale(10),
+    height: '100%',
     paddingLeft: scale(2),
+    paddingBottom: scale(8),
     fontSize: scale(16),
     borderBottomWidth: scale(1.5),
     borderBottomColor: colors.darkBlue,
   },
   icon: {
     position: 'absolute',
-    bottom: scale(15),
     right: 0,
+    bottom: scale(5),
   },
   list: {
     flex: 1,

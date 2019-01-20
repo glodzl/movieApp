@@ -30,11 +30,13 @@ export default StyleSheet.create({
   },
   title: {
     fontFamily: 'Roboto-Bold',
+    color: colors.almostBlack,
     fontSize: scale(18),
     marginBottom: scale(10),
   },
   genre: {
     fontFamily: 'Roboto-Light',
+    color: colors.darkGrey,
     marginVertical: scale(5),
   },
   ratingText: {

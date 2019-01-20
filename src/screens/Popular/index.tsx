@@ -11,12 +11,12 @@ interface Props {
   addFavourite: Function;
   removeFavourite: Function;
   addGenre: Function;
-  genres: Array<Genre>;
-  favourites: Array<Movie>;
+  genres: Genre[];
+  favourites: Movie[];
 }
 
 interface State {
-  movies: Array<Movie>;
+  movies: Movie[];
   page: number;
 }
 
@@ -37,16 +37,19 @@ class Popular extends React.Component<Props, State> {
       })
     );
 
+  keyExtractor = item => item.id.toString();
+
+  onEndReached = () =>
+    this.setState({ page: this.state.page + 1 }, this.loadPopular);
+
   render() {
     return (
       <View style={styles.container}>
         <FlatList
           style={styles.list}
           data={this.state.movies}
-          keyExtractor={item => item.id.toString()}
-          onEndReached={() =>
-            this.setState({ page: this.state.page + 1 }, this.loadPopular)
-          }
+          keyExtractor={this.keyExtractor}
+          onEndReached={this.onEndReached}
           renderItem={({ item }) => (
             <MovieItem
               item={item}

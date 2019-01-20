@@ -1,5 +1,5 @@
 export interface Movie {
-  genre_ids: Array<number>;
+  genre_ids: number[];
   id: number;
   overview: string;
   poster_path?: string;

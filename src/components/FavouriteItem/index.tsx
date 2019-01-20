@@ -9,7 +9,7 @@ const { width } = Dimensions.get('window');
 const ITEM_WIDTH = (width - scale(30)) / 3;
 
 interface Props {
-  onPress: Function;
+  onPress: () => any;
   item: Movie;
 }
 

@@ -60,6 +60,7 @@ export default StyleSheet.create({
   genreText: {
     flex: 1,
     fontFamily: 'Roboto-Light',
+    color: colors.darkGrey,
     fontSize: scale(12),
   },
   dateContainer: {
@@ -68,9 +69,10 @@ export default StyleSheet.create({
     marginRight: scale(-1),
   },
   dateText: {
-    marginHorizontal: scale(3),
-    fontSize: scale(12),
     fontFamily: 'Roboto-Light',
+    marginHorizontal: scale(3),
+    color: colors.darkGrey,
+    fontSize: scale(12),
   },
   overview: {
     marginTop: scale(15),

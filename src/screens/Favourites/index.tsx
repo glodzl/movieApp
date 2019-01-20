@@ -6,7 +6,7 @@ import { Movie } from '../../interfaces';
 import styles from './styles';
 
 interface Props {
-  favourites: Array<Movie>;
+  favourites: Movie[];
 }
 
 class Favourites extends React.Component<Props> {

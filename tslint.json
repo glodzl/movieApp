@@ -1,10 +1,17 @@
 {
-    "defaultSeverity": "error",
-    "extends": ["tslint-config-airbnb","tslint:recommended", "tslint-config-prettier", "tslint-react"],
-    "linterOptions": {
-        "exclude": ["node_modules/**/*.ts", "dist/**/*.ts"]
-      },
-    "jsRules": {},
-    "rules": {},
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier", "tslint-react"],
+  "linterOptions": {
+    "exclude": ["node_modules/**/*.ts", "dist/**/*.ts"]
+  },
+  "jsRules": {},
+  "rules": {
+    "import-name": false,
+    "variable-name": false,
+    "jsx-no-multiline-js": false,
+    "jsx-alignment": false,
+    "jsx-no-lambda": false,
+    "jsx-boolean-value": false
+  },
+  "rulesDirectory": []
 }

@@ -2,16 +2,16 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
-import { Movie } from '../../interfaces';
+import { Genre, Movie } from '../../interfaces';
 import { getYear, imagePath, scale } from '../../utils';
 import styles from './styles';
 
 
 interface Props {
   item: Movie;
-  genres: Array<Genre>;
-  favourites: Array<Movie>;
-  onPress: Function;
+  genres: Genre[];
+  favourites: Movie[];
+  onPress: () => any;
   addFavourite: Function;
   removeFavourite: Function;
   addGenre: Function;
@@ -27,6 +27,8 @@ const MovieItem = ({
 }: Props) => {
   const isFavourite = favourites.filter(movie => movie.title === item.title)
     .length;
+  const favouritePress = () => isFavourite ? removeFavourite(item) : addFavourite(item);
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.imageContainer}>
@@ -71,9 +73,7 @@ const MovieItem = ({
         <TouchableOpacity
           style={styles.favourite}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          onPress={() =>
-            isFavourite ? removeFavourite(item) : addFavourite(item)
-          }>
+          onPress={favouritePress}>
           <Icon
             name={isFavourite ? 'favorite' : 'favorite-border'}
             size={scale(24)}

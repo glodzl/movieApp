@@ -16,7 +16,7 @@ import { getYear, imagePath, scale } from '../../utils';
 import styles from './styles';
 
 interface Props {
-  genres: Array<Genre>;
+  genres: Genre[];
 }
 
 interface State {
