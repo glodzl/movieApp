@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MainNavigator from './Routes';
 import { SafeAreaView } from 'react-navigation';
-import colors from './config/colors';
+import colors from './themes/colors';
 
 export default class AppNavigationComponent extends Component {
   render() {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {
   Image,
   ImageBackground,
@@ -8,13 +7,28 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import YouTube from 'react-native-youtube';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import YouTube from 'react-native-youtube';
+import { Genre } from '../../interfaces';
 import { getVideo } from '../../services';
 import { getYear, imagePath, scale } from '../../utils';
 import styles from './styles';
 
-class Detail extends React.Component {
+interface Props {
+  genres: Array<Genre>;
+}
+
+interface State {
+  video: any;
+}
+
+class Detail extends React.Component<Props, State> {
+
+  public static defaultProps = { 
+    genres: null
+  };
+
   componentDidMount() {
     const { id } = this.props.navigation.getParam('item');
     getVideo(id).then(res => this.setState({ video: res.data.results[0].key }));
@@ -39,7 +53,7 @@ class Detail extends React.Component {
             />
             <View style={styles.detailContainer}>
               <Text style={styles.title}>{item.title}</Text>
-              {this.props?.genres && (
+              {this.props.genres && (
                 <Text style={styles.genre}>
                   {item.genre_ids
                     .map(
@@ -75,6 +89,7 @@ class Detail extends React.Component {
     );
   }
 }
+
 
 const mapStateToProps = state => ({ genres: state.genres });
 

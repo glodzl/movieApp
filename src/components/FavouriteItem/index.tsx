@@ -1,14 +1,19 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, Dimensions, View } from 'react-native';
-import { imagePath } from '../../utils';
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Movie } from '../../interfaces';
+import { imagePath, scale } from '../../utils';
 import styles from './styles';
-import { scale } from '../../utils';
 
 const { width } = Dimensions.get('window');
 const ITEM_WIDTH = (width - scale(30)) / 3;
 
-export const FavouriteItem = ({ item, onPress }) => (
+interface Props {
+  onPress: Function;
+  item: Movie;
+}
+
+export const FavouriteItem = ({ item, onPress }: Props) => (
   <View style={styles.shadowContainer}>
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <Image

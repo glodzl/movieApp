@@ -8,7 +8,7 @@ import PopularScreen from './screens/Popular';
 import DetailScreen from './screens/Detail';
 import FavouritesScreen from './screens/Favourites';
 import { scale } from './utils';
-import colors from './config/colors';
+import colors from './themes/colors';
 
 const navigationOptions = {
   mode: 'modal',

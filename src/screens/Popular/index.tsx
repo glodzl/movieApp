@@ -2,12 +2,25 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import { connect } from 'react-redux';
 import MovieItem from '../../components/MovieItem';
-import { addGenre } from '../../actions/genre';
-import { addFavourite, removeFavourite } from '../../actions/favourite';
-import { getPopular, getGenre } from '../../services';
+import { addGenre, addFavourite, removeFavourite } from '../../actions';
+import { Genre, Movie } from '../../interfaces';
+import { getGenre, getPopular } from '../../services';
 import styles from './styles';
 
-class Popular extends React.Component {
+interface Props {
+  addFavourite: Function;
+  removeFavourite: Function;
+  addGenre: Function;
+  genres: Array<Genre>;
+  favourites: Array<Movie>;
+}
+
+interface State {
+  movies: Array<Movie>;
+  page: number;
+}
+
+class Popular extends React.Component<Props, State> {
   state = {
     movies: [],
     page: 1,

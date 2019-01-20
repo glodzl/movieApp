@@ -1,14 +1,27 @@
 import React from 'react';
-import { FlatList, TouchableOpacity, View, TextInput } from 'react-native';
-import { connect } from 'react-redux';
+import { FlatList, TextInput, TouchableOpacity,View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import { addFavourite, removeFavourite } from '../../actions';
 import MovieItem from '../../components/MovieItem';
-import { addFavourite, removeFavourite } from '../../actions/favourite';
+import { Genre, Movie } from '../../interfaces';
 import { searchMovie } from '../../services';
 import { scale } from '../../utils';
 import styles from './styles';
 
-class Search extends React.Component {
+interface Props {
+  addFavourite: Function;
+  removeFavourite: Function;
+  genres: Array<Genre>;
+  favourites: Array<Movie>;
+}
+
+interface State {
+  search: any;
+  movies: Array<Movie>
+}
+
+class Search extends React.Component<mapStateToProps, State> {
   movieSearch = text => {
     clearTimeout(this.state?.search);
     if (!!text) {

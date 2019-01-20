@@ -1,4 +1,4 @@
-import { FAVOURITE_ADD, FAVOURITE_REMOVE } from '../actions/favourite';
+import { FAVOURITE_ADD, FAVOURITE_REMOVE } from '../actions';
 
 export const favouritesReducer = (state = [], action) => {
   switch (action.type) {

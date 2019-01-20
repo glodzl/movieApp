@@ -1,10 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { FlatList, Text, View } from 'react-native';
+import { connect } from 'react-redux';
 import { FavouriteItem } from '../../components/FavouriteItem';
+import { Movie } from '../../interfaces';
 import styles from './styles';
 
-class Favourites extends React.Component {
+interface Props {
+  favourites: Array<Movie>;
+}
+
+class Favourites extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>

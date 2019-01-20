@@ -1,3 +1,3 @@
 import { baseURL } from './baseURL';
 
-export const popularApi = () => `${baseURL}/movie/popular`;
+export const popularApi = (): string => `${baseURL}/movie/popular`;

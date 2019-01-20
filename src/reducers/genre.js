@@ -1,4 +1,4 @@
-import { GENRE_ADD } from '../actions/genre';
+import { GENRE_ADD } from '../actions';
 
 export const genresReducer = (state = [], action) => {
   switch (action.type) {

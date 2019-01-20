@@ -1,9 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
-import { imagePath, getYear, scale } from '../../utils';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+import { Movie } from '../../interfaces';
+import { getYear, imagePath, scale } from '../../utils';
 import styles from './styles';
+
+
+interface Props {
+  item: Movie;
+  genres: Array<Genre>;
+  favourites: Array<Movie>;
+  onPress: Function;
+  addFavourite: Function;
+  removeFavourite: Function;
+  addGenre: Function;
+}
 
 const MovieItem = ({
   item,
@@ -12,7 +24,7 @@ const MovieItem = ({
   onPress,
   genres,
   favourites,
-}) => {
+}: Props) => {
   const isFavourite = favourites.filter(movie => movie.title === item.title)
     .length;
   return (

@@ -1,3 +1,3 @@
 import { baseURL } from './baseURL';
 
-export const searchMovieApi = () => `${baseURL}/search/movie`;
+export const searchMovieApi = (): string => `${baseURL}/search/movie`;
