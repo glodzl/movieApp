@@ -21,7 +21,7 @@ interface State {
   movies: Array<Movie>
 }
 
-class Search extends React.Component<mapStateToProps, State> {
+class Search extends React.Component<Props, State> {
   movieSearch = text => {
     clearTimeout(this.state?.search);
     if (!!text) {
