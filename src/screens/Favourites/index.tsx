@@ -10,6 +10,8 @@ interface Props {
 }
 
 class Favourites extends React.Component<Props> {
+  keyExtractor: (item: Movie) => string = item => item.id.toString();
+
   render() {
     return (
       <View style={styles.container}>
@@ -18,7 +20,7 @@ class Favourites extends React.Component<Props> {
             style={styles.list}
             numColumns={3}
             data={this.props.favourites}
-            keyExtractor={item => item.id.toString()}
+            keyExtractor={this.keyExtractor}
             renderItem={({ item }) => (
               <FavouriteItem
                 item={item}

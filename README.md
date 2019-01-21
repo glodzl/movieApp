@@ -5,7 +5,7 @@ It uses React Native, Redux and TypeScript.
 
 ## Usage
 
-`https://github.com/glodzl/movieApp.git <dirName>`
+`git clone https://github.com/glodzl/movieApp.git <dirName>`
 
 `cd <dirName>`
 
@@ -23,4 +23,4 @@ It uses React Native, Redux and TypeScript.
 
 ### Android APK
 
-https://drive.google.com/file/d/1vcPBtKTMyniwnX6PGknQYuUcH88NKGQI/view?usp=sharing
+https://drive.google.com/file/d/11WrQGLzdkeKyUHMVYQ5YDk78OeVz2C9K/view?usp=sharing

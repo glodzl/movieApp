@@ -5,12 +5,12 @@ import {
   View,
   Animated,
 } from 'react-native';
-import AnimatedHeader from './header';
-import { YOUTUBE_API_KEY } from '../../config';
-import { addFavourite, removeFavourite } from '../../actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { connect } from 'react-redux';
 import YouTube from 'react-native-youtube';
+import { connect } from 'react-redux';
+import { addFavourite, removeFavourite } from '../../actions';
+import { YOUTUBE_API_KEY } from '../../config';
+import AnimatedHeader from './header';
 import { Genre, Movie } from '../../interfaces';
 import { getVideo } from '../../services';
 import { getYear, imagePath, scale } from '../../utils';
@@ -24,7 +24,8 @@ interface Props {
 }
 
 interface State {
-  video: any;
+  scrollY: any;
+  video: string;
   videoHeight: number;
 }
 const scrollRangeForAnimation = scale(150);
@@ -34,9 +35,10 @@ const HeaderPlaceholder = <View style={styles.headerPlaceholder} />;
 class Detail extends React.Component<Props, State> {
   
   state = {
-    scrollY: new Animated.Value(0),
-    videoHeight: scale(200)
-  }
+      scrollY: new Animated.Value(0),
+      video: null,
+      videoHeight: scale(200)
+  } 
 
   public static defaultProps = { 
     genres: null
@@ -53,11 +55,11 @@ class Detail extends React.Component<Props, State> {
   }
 
   render() {
-    const item = this.props.navigation.getParam('item');
-    const isFavourite = this.props.favourites.filter(movie => movie.title === item.title)
+    const item: Movie = this.props.navigation.getParam('item');
+    const isFavourite:boolean = this.props.favourites.filter(movie => movie.id === item.id)
     .length > 0;
-    const favouritePress = () => isFavourite ? this.props.removeFavourite(item) : this.props.addFavourite(item);
-    const backPress = () => this.props.navigation.goBack()
+    const favouritePress: () => any = () => isFavourite ? this.props.removeFavourite(item) : this.props.addFavourite(item);
+    const backPress: () => any = () => this.props.navigation.goBack()
 
     const animationRange = this.state.scrollY.interpolate({
       inputRange: [0, scrollRangeForAnimation],
@@ -103,8 +105,10 @@ class Detail extends React.Component<Props, State> {
                 </Text>
               )}
               <View style={styles.detailSubContainer}>
-                <Text style={styles.detailText}>{item.vote_average}</Text>
-                <Icon name="star" size={scale(14)} color="black" />
+                <Text style={styles.detailText}>{item.vote_average || 'No rating'}</Text>
+                {!!item.vote_average && (
+                  <Icon name="star" size={scale(14)} color="black" />
+                )}
               </View>
               <View style={styles.detailSubContainer}>
                 <Text style={styles.detailText}>
@@ -115,12 +119,12 @@ class Detail extends React.Component<Props, State> {
             </View>
           </View>
           <Text style={styles.overview}>{item.overview}</Text>
-          {this.state?.video && (
+          {this.state.video && (
             <YouTube
               apiKey={YOUTUBE_API_KEY}
               controls={1}
               play={false}
-              videoId={this.state?.video} // The YouTube video ID
+              videoId={this.state.video}
               onReady={this.handleReady}
               style={[styles.youtube, { height: this.state.videoHeight } ]}
             />

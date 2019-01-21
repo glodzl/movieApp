@@ -24,9 +24,9 @@ const MovieItem = ({
   genres,
   favourites,
 }: Props) => {
-  const isFavourite = favourites.filter(movie => movie.title === item.title)
-    .length;
-  const favouritePress = () => isFavourite ? removeFavourite(item) : addFavourite(item);
+  const isFavourite:boolean = favourites.filter(movie => movie.id === item.id)
+    .length > 0;
+  const favouritePress: () => any = () => isFavourite ? removeFavourite(item) : addFavourite(item);
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>

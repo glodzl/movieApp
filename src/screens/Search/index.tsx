@@ -23,7 +23,7 @@ interface State {
 }
 
 class Search extends React.Component<Props, State> {
-  movieSearch = text => {
+  movieSearch: (text: string) => void = text => {
     clearTimeout(this.state?.search);
     if (!!text) {
       const search = setTimeout(() => {
@@ -35,7 +35,10 @@ class Search extends React.Component<Props, State> {
     }
   };
 
-  keyExtractor = item => item.id.toString();
+  keyExtractor: (item: Movie) => string = item => item.id.toString();
+
+  onChangeText: (searchValue: string) => void = searchValue =>
+    this.setState({ searchValue }, () => this.movieSearch(searchValue));
 
   render() {
     return (
@@ -43,13 +46,9 @@ class Search extends React.Component<Props, State> {
         <View style={styles.inputContainer}>
           <TextInput
             value={this.state?.searchValue}
-            placeholder="Search for movie by name"
+            placeholder="Search for movies by title"
             autoFocus
-            onChangeText={searchValue =>
-              this.setState({ searchValue }, () =>
-                this.movieSearch(searchValue)
-              )
-            }
+            onChangeText={this.onChangeText}
             style={styles.textInput}
           />
           {!!this.state?.searchValue && (

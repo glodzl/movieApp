@@ -1,4 +1,5 @@
 export interface Movie {
+  backdrop_path?: string;
   genre_ids: number[];
   id: number;
   overview: string;

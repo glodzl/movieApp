@@ -37,7 +37,7 @@ class Popular extends React.Component<Props, State> {
       })
     );
 
-  keyExtractor = item => item.id.toString();
+  keyExtractor: (item: Movie) => string = item => item.id.toString();
 
   onEndReached = () =>
     this.setState({ page: this.state.page + 1 }, this.loadPopular);
