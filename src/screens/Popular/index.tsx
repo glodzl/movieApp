@@ -8,9 +8,9 @@ import { getGenre, getPopular } from '../../services';
 import styles from './styles';
 
 interface Props {
-  addFavourite: Function;
-  removeFavourite: Function;
-  addGenre: Function;
+  addFavourite: (item: Movie) => void;
+  removeFavourite: (item: Movie) => void;
+  addGenre: (genres: Genre[]) => void;
   genres: Genre[];
   favourites: Movie[];
 }

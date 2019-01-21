@@ -44,8 +44,11 @@ export default StyleSheet.create({
     resizeMode: 'cover',
   },
   headerTitle: {
+    flex: 1,
+    textAlign: 'center',
     fontFamily: 'Roboto-Medium',
     fontSize: scale(16),
+    marginHorizontal: scale(5),
     color: colors.white,
   },
   headerButtonContainer: {

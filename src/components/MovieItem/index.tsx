@@ -12,9 +12,8 @@ interface Props {
   genres: Genre[];
   favourites: Movie[];
   onPress: () => any;
-  addFavourite: Function;
-  removeFavourite: Function;
-  addGenre: Function;
+  addFavourite: (item: Movie) => void;
+  removeFavourite: (item: Movie) => void;
 }
 
 const MovieItem = ({

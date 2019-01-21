@@ -10,8 +10,8 @@ import { scale } from '../../utils';
 import styles from './styles';
 
 interface Props {
-  addFavourite: Function;
-  removeFavourite: Function;
+  addFavourite: (item: Movie) => void;
+  removeFavourite: (item: Movie) => void;
   genres: Genre[];
   favourites: Movie[];
 }
@@ -34,6 +34,9 @@ class Search extends React.Component<Props, State> {
       this.setState({ search });
     }
   };
+
+  keyExtractor = item => item.id.toString();
+
   render() {
     return (
       <View style={styles.container}>
@@ -60,7 +63,7 @@ class Search extends React.Component<Props, State> {
         <FlatList
           style={styles.list}
           data={this.state?.movies}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={this.keyExtractor}
           renderItem={({ item }) => (
             <MovieItem
               item={item}

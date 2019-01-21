@@ -25,7 +25,7 @@ interface Props {
 
 interface State {
   video: any;
-  height: number;
+  videoHeight: number;
 }
 const scrollRangeForAnimation = scale(150);
 // headerHeight = scale(200);
@@ -49,7 +49,7 @@ class Detail extends React.Component<Props, State> {
 
   handleReady = () => {
         // android fix to have controls on video
-        setTimeout(() => this.setState({ height: scale(201) }), 500);
+        setTimeout(() => this.setState({ videoHeight: scale(201) }), 500);
   }
 
   render() {
@@ -122,7 +122,7 @@ class Detail extends React.Component<Props, State> {
               play={false}
               videoId={this.state?.video} // The YouTube video ID
               onReady={this.handleReady}
-              style={[styles.youtube, { height: this.state.height } ]}
+              style={[styles.youtube, { height: this.state.videoHeight } ]}
             />
           )}
         </View>

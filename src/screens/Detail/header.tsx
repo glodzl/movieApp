@@ -56,7 +56,10 @@ const AnimatedHeader = ({
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
           <Icon name="chevron-left" size={scale(25)} color="white" />
         </TouchableOpacity>
-        <Animated.Text style={[styles.headerTitle, titleOpacity]}>
+        <Animated.Text
+          style={[styles.headerTitle, titleOpacity]}
+          numberOfLines={1}
+          ellipsizeMode="tail">
           {title}
         </Animated.Text>
         <TouchableOpacity
